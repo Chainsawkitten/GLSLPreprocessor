@@ -5,13 +5,36 @@
 
 using namespace std;
 
+string GetParentDirectory(const string& path) {
+    for (size_t i = path.length() - 1; i > 0; --i) {
+        if (path[i] == '\\' || path[i] == '/')
+            return path.substr(0, i);
+    }
+    
+    return path;
+}
+
+string ProcessFile(const string& filename);
+
+string ProcessLine(const string& line, const string& directory) {
+    if (line.substr(0, 8) == "#include") {
+        size_t startPosition = line.find('"') + 1;
+        size_t endPosition = line.find('"', startPosition);
+        string filename = directory + "/" + line.substr(startPosition, endPosition - startPosition);
+        return ProcessFile(filename);
+    }
+    
+    return line;
+}
+
 string ProcessFile(const string& filename) {
     string contents = "";
+    string directory = GetParentDirectory(filename);
     
     string line;
     ifstream inFile(filename.c_str());
     while (getline(inFile, line))
-        contents += line + "\n";
+        contents += ProcessLine(line, directory) + "\n";
     
     inFile.close();
     
