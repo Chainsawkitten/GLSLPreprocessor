@@ -1,6 +1,7 @@
 #include <cstring>
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -20,6 +21,14 @@ int main(int argc, const char* argv[]) {
         outputName = argv[2];
     else
         outputName = inputName;
+    
+    // TODO: Process file.
+    string output = "";
+    
+    // Write output file.
+    ofstream outFile(outputName.c_str());
+    outFile << output;
+    outFile.close();
     
     return 0;
 }
