@@ -5,6 +5,19 @@
 
 using namespace std;
 
+string ProcessFile(const string& filename) {
+    string contents = "";
+    
+    string line;
+    ifstream inFile(filename.c_str());
+    while (getline(inFile, line))
+        contents += line;
+    
+    inFile.close();
+    
+    return contents;
+}
+
 int main(int argc, const char* argv[]) {
     // Print help
     if (argc == 1 || strcmp(argv[0], "--help") == 0) {
@@ -22,8 +35,8 @@ int main(int argc, const char* argv[]) {
     else
         outputName = inputName;
     
-    // TODO: Process file.
-    string output = "";
+    // Process file.
+    string output = ProcessFile(inputName);
     
     // Write output file.
     ofstream outFile(outputName.c_str());
