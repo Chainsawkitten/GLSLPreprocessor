@@ -11,7 +11,7 @@ string ProcessFile(const string& filename) {
     string line;
     ifstream inFile(filename.c_str());
     while (getline(inFile, line))
-        contents += line;
+        contents += line + "\n";
     
     inFile.close();
     
