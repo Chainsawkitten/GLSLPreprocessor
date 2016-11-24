@@ -2,6 +2,9 @@
 Library providing functionality used by vertexShader.glsl.
 */
 
+// Include ourselves to show recursive inclusion.
+#include "library.glsl"
+
 /// Add two vectors together.
 /**
  * @param a First vector to add.
