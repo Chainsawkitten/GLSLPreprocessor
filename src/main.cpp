@@ -2,8 +2,11 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <set>
 
 using namespace std;
+
+set<string> includedFiles;
 
 string GetParentDirectory(const string& path) {
     for (size_t i = path.length() - 1; i > 0; --i) {
@@ -28,6 +31,11 @@ string ProcessLine(const string& line, const string& directory) {
 }
 
 string ProcessFile(const string& filename) {
+    // Only include the file if we haven't already.
+    if (includedFiles.find(filename) != includedFiles.end())
+        return "";
+    includedFiles.insert(filename);
+    
     string contents = "";
     string directory = GetParentDirectory(filename);
     
